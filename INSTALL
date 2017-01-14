@@ -1,0 +1,9 @@
+Building erso
+
+See doc/readme-qt.rst for instructions on building erso QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of erso.
+
+See doc/build-*.txt for instructions on building ersod,
+the intended-for-services, no-graphical-interface, reference
+implementation of erso.

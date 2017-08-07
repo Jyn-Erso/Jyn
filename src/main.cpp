@@ -42,16 +42,16 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 24); // 0,000244140625 proof-of-work d
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-static const int64_t nTargetTimespan = 60 * 30;  // 30m
-unsigned int nTargetSpacing = 1 * 30; // erso - 0.5 minute blocks
+static const int64_t nTargetTimespan = 60 * 30;  // 30 minutes
+unsigned int nTargetSpacing = 1 * 30; // erso - 30 Seconds blocks
 static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
 static const int64_t nDiffChangeTarget = 1;
 
-unsigned int nStakeMinAge = 1 * 60 * 60; // 1 hours
-unsigned int nStakeMaxAge = 60 * 60 * 24 * 3;  // 3 days
+unsigned int nStakeMinAge = 1 * 60 * 60; // 1 hour
+unsigned int nStakeMaxAge = 3 * 24 *60 * 60;  // 3 days
 unsigned int nModifierInterval = 10 * 60; // erso - time to elapse before new modifier is computed
 
-int nCoinbaseMaturity = 100;
+int nCoinbaseMaturity = 100; // 120 Blocks for full maturity
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 
@@ -1003,9 +1003,18 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
     // proof of stake rewards. POS begins at block 5000
     
     int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);  //default 15% yr
-
-    
-
+    if(pindexBest->nHeight < 84000)
+        {
+            nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8) * 10000; // For new network users
+        }
+    else if(pindexBest->nHeight < 88000)
+        {
+            nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8) * 100; // For new network users
+        }
+    else if(pindexBest->nHeight < 90000)
+        {
+            nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8) * 10; // For new network users
+        }
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nCoinAge);
 

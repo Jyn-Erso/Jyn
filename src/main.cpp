@@ -1015,6 +1015,14 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
         {
             nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8) * 10; // For new network users
         }
+    else if(pindexBest->nHeight < 126750)
+        {
+            nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8) * 10; // For new network users
+        }
+    else if(pindexBest->nHeight < 140000)
+        {
+            nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8) * 66666; // For 2018 network users
+        }
     if (fDebug && GetBoolArg("-printcreation"))
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%"PRId64"\n", FormatMoney(nSubsidy).c_str(), nCoinAge);
 

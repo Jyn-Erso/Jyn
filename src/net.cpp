@@ -25,7 +25,7 @@
 using namespace std;
 using namespace boost;
 
-static const int MAX_OUTBOUND_CONNECTIONS = 16;
+static const int MAX_OUTBOUND_CONNECTIONS = 32;
 
 void ThreadMessageHandler2(void* parg);
 void ThreadSocketHandler2(void* parg);
@@ -1235,6 +1235,7 @@ static const char *strDNSSeed[][2] = {
     {"192.169.7.83", "192.169.7.83"},
     {"Paid Node", "52.88.118.126"},
     {"94.213.50.182", "94.213.50.182"},
+    {"Paid Node1", "52.10.192.151"},
 
 };
 
